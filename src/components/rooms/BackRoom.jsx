@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { wallMaterial, floorMaterial } from "../materials";
 
 export default function BackRoom() {
 
@@ -12,20 +13,6 @@ export default function BackRoom() {
   const width = 2.13;   // same as office
   const height = 1.4;   // upper floor height
   const depth = 1.4;    // back half of cube
-
-
-
-  // --------------------
-  // MATERIAL
-  // --------------------
-
-  const wallMaterial =
-    new THREE.MeshStandardMaterial({
-      color:"#F7E9D2",
-      roughness:0.9
-    });
-
-
 
   // --------------------
   // BACK WALL

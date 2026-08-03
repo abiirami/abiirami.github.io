@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { wallMaterial, floorMaterial, doorMaterial, metalMaterial, glassMaterial } from "../materials";
 
 export default function Hallway() {
 
@@ -10,34 +11,8 @@ export default function Hallway() {
   // --------------------
 
   const width = 0.53;
-  const height = 1.4;
+  const height = 1.38;
   const depth = 2.8;
-
-
-
-  // --------------------
-  // MATERIALS
-  // --------------------
-
-  const wallMaterial =
-    new THREE.MeshStandardMaterial({
-      color:"#F7E9D2",
-      roughness:0.9
-    });
-
-
-  const floorMaterial =
-    new THREE.MeshStandardMaterial({
-      color:"#B9825A",
-      roughness:0.8
-    });
-
-
-  const doorMaterial =
-    new THREE.MeshStandardMaterial({
-      color:"#8B5A35",
-      roughness:0.8
-    });
 
 
 
@@ -55,11 +30,17 @@ export default function Hallway() {
       floorMaterial
     );
 
+
   floor.position.y =
     -height / 2;
 
 
-  hallway.add(floor);
+  floor.receiveShadow = true;
+
+
+  hallway.add(
+    floor
+  );
 
 
 
@@ -82,7 +63,9 @@ export default function Hallway() {
     width / 2;
 
 
-  hallway.add(rightWall);
+  hallway.add(
+    rightWall
+  );
 
 
 
@@ -105,30 +88,146 @@ export default function Hallway() {
     -depth / 2;
 
 
-  hallway.add(backWall);
-
+  hallway.add(
+    backWall
+  );
 
 
   // --------------------
-  // FRONT DOOR WALL
+  // DOOR 
   // --------------------
 
-  const frontDoor =
+  const door =
     new THREE.Mesh(
       new THREE.BoxGeometry(
         width,
         height,
-        0.05
+        0.035
       ),
-      doorMaterial
+      glassMaterial
     );
 
 
-  frontDoor.position.z =
-    depth / 2;
+  door.position.set(
+    0,
+    0,
+    depth / 2 + 0.01
+  );
 
 
-  hallway.add(frontDoor);
+  door.castShadow = true;
+
+
+  hallway.add(
+    door
+  );
+
+
+
+  // --------------------
+  // DOOR FRAME
+  // --------------------
+
+
+
+
+  function addFrame(
+    x,
+    y,
+    w,
+    h
+  ){
+
+    const frame =
+      new THREE.Mesh(
+        new THREE.BoxGeometry(
+          w,
+          h,
+          0.04
+        ),
+        metalMaterial
+      );
+
+
+    frame.position.set(
+      x,
+      y,
+      depth / 2 + 0.03
+    );
+
+
+    frame.castShadow = true;
+
+
+    hallway.add(
+      frame
+    );
+
+  }
+
+
+
+  // left trim
+
+  addFrame(
+    -width / 2 - 0.025,
+    0,
+    0.05,
+    height
+  );
+
+
+
+  // right trim
+
+  addFrame(
+    width / 2 + 0.025,
+    0,
+    0.05,
+    height
+  );
+
+
+
+  // top trim
+
+  addFrame(
+    0,
+    height / 2 + 0.025,
+    width + 0.1,
+    0.05
+  );
+
+
+
+  // --------------------
+  // HANDLE
+  // --------------------
+
+  const handle =
+    new THREE.Mesh(
+      new THREE.SphereGeometry(
+        0.025,
+        16,
+        16
+      ),
+      metalMaterial
+    );
+
+
+  handle.position.set(
+    width / 2 - 0.08,
+    0,
+    depth / 2 + 0.1
+  );
+
+
+  handle.castShadow = true;
+
+
+  hallway.add(
+    handle
+  );
 
 
 

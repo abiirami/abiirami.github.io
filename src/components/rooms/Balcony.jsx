@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { metalMaterial } from "../materials";
+import { floorMaterial, metalMaterial } from "../materials";
 
 export default function Balcony() {
 
@@ -10,21 +10,10 @@ export default function Balcony() {
   // DIMENSIONS
   // --------------------
 
-  const width = 1.07;
+  const width = 0.6;
   const depth = 1.4;
   const thickness = 0.08;
 
-
-
-  // --------------------
-  // MATERIALS
-  // --------------------
-
-  const floorMaterial =
-    new THREE.MeshStandardMaterial({
-      color:"#8B5A35",
-      roughness:0.8
-    });
 
   // --------------------
   // FLOOR
@@ -82,7 +71,7 @@ export default function Balcony() {
     );
 
 
-    rail.castShadow = true;
+    // rail.castShadow = true;
 
     balcony.add(rail);
   }
@@ -215,6 +204,62 @@ export default function Balcony() {
 
   }
 
+// --------------------
+// OUTSIDE BACK STAIRS
+// --------------------
+
+const stairMaterial =
+  new THREE.MeshStandardMaterial({
+    color:"#8B5A35",
+    roughness:0.8
+  });
+
+
+const stairWidth = 0.45;
+const stepDepth = 0.22;
+const stepHeight = 0.10;
+
+const steps = 10;
+
+
+// move stairs away from balcony
+const stairOffset = 0.18;
+
+
+for(let i = 0; i < steps; i++){
+
+  const step =
+    new THREE.Mesh(
+      new THREE.BoxGeometry(
+        stairWidth,
+        stepHeight,
+        stepDepth
+      ),
+      stairMaterial
+    );
+
+
+  step.position.set(
+
+    // hugs outside wall
+    -width / 2 + stairWidth / 2,
+
+    // descend
+    -i * 0.14 - 0.05,
+
+    // starts behind balcony
+    -depth / 2 - stairOffset - i * 0.12
+
+  );
+
+
+  step.castShadow = true;
+  step.receiveShadow = true;
+
+
+  balcony.add(step);
+
+}
 
 
   return balcony;

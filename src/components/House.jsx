@@ -1,75 +1,102 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
+
 import OfficeRoom from "./rooms/OfficeRoom";
 import ArtRoom from "./rooms/ArtRoom";
 import Hallway from "./rooms/Hallway";
 import BackRoom from "./rooms/BackRoom";
 import RightRoom from "./rooms/RightRoom";
 import Balcony from "./rooms/Balcony";
-import { wallMaterial, metalMaterial } from "./materials";
 
-export default function House() {
+import { metalMaterial } from "./materials";
+
+import { OrbitControls } from 
+"three/examples/jsm/controls/OrbitControls.js";
+
+
+export default function House(){
+
     const containerRef = useRef(null);
 
-    useEffect(() => {
-        if (!containerRef.current) return;
+
+    useEffect(()=>{
+
+        if(!containerRef.current) return;
+
 
 
         // --------------------
         // SCENE
         // --------------------
 
-        const scene = new THREE.Scene();
+        const scene =
+            new THREE.Scene();
+
+
+        scene.background =
+            new THREE.Color("#dfe8d5");
+
 
 
         // --------------------
         // CAMERA
         // --------------------
 
-        const camera = new THREE.PerspectiveCamera(
-            40,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            100
-        );
+        const camera =
+            new THREE.PerspectiveCamera(
+                40,
+                window.innerWidth /
+                window.innerHeight,
+                0.1,
+                100
+            );
 
-        camera.position.set(
-            0,
-            2,
-            10
-        );
 
-        camera.lookAt(
-            0,
-            2,
-            0
-        );
+camera.position.set(
+    0,
+    2,
+    10
+);
+
+camera.lookAt(
+    0,
+    1.5,
+    0
+);
+
 
 
         // --------------------
         // RENDERER
         // --------------------
 
-        const renderer = new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: true,
-        });
+        const renderer =
+            new THREE.WebGLRenderer({
+                antialias:true
+            });
+
 
         renderer.setPixelRatio(
-            window.devicePixelRatio
+            Math.min(
+                window.devicePixelRatio,
+                1.5
+            )
         );
+
 
         renderer.setSize(
             window.innerWidth,
             window.innerHeight
         );
 
-        renderer.setClearColor(
-            0x000000,
-            0
-        );
+
+        renderer.outputColorSpace =
+            THREE.SRGBColorSpace;
+
 
         renderer.shadowMap.enabled = true;
+
+
         renderer.shadowMap.type =
             THREE.PCFSoftShadowMap;
 
@@ -78,11 +105,17 @@ export default function House() {
             renderer.domElement
         );
 
+
+
+
         // --------------------
-        // HOUSE GROUP
+        // HOUSE
         // --------------------
 
-        const houseGroup = new THREE.Group();
+        const houseGroup =
+            new THREE.Group();
+
+
 
         const office =
             OfficeRoom();
@@ -92,11 +125,16 @@ export default function House() {
             2.1,
             0.7
         );
+
         houseGroup.add(
             office
         );
 
-        const artRoom = ArtRoom();
+
+
+        const artRoom =
+            ArtRoom();
+
         artRoom.position.set(
             -0.8,
             0.7,
@@ -107,7 +145,10 @@ export default function House() {
             artRoom
         );
 
-        const hallway = Hallway();
+
+
+        const hallway =
+            Hallway();
 
         hallway.position.set(
             0.265,
@@ -119,109 +160,107 @@ export default function House() {
             hallway
         );
 
-        const backRoom = BackRoom();
+
+
+        const backRoom =
+            BackRoom();
 
         backRoom.position.set(
-            -0.535, // align with Office
-            2.1,    // upper floor
-            -0.7    // behind Office
+            -0.535,
+            2.1,
+            -0.7
         );
 
         houseGroup.add(
             backRoom
         );
 
-        const rightRoom = RightRoom();
 
 
-rightRoom.position.set(
-  1.065,
-  1.4,
-  0
-);
+        const rightRoom =
+            RightRoom();
+
+        rightRoom.position.set(
+            1.065,
+            1.4,
+            0
+        );
+
+        houseGroup.add(
+            rightRoom
+        );
 
 
-houseGroup.add(
-  rightRoom
-);
+
+        const balcony =
+            Balcony();
 
 
-const balcony = Balcony();
-
-balcony.position.set(
-  1.6,   // outside right wall
-1.4,   // second floor height
-  0.7    // sticks toward front
-);
+        balcony.position.set(
+            1.9,
+            1.4,
+            0.7
+        );
 
 
-houseGroup.add(
-  balcony
-);
+        houseGroup.add(
+            balcony
+        );
+
+
+
         scene.add(
             houseGroup
         );
 
 
+
+
         // --------------------
-        // MAIN HOUSE
+        // ROOF
         // --------------------
 
-        const house =
+        const roof =
             new THREE.Mesh(
                 new THREE.BoxGeometry(
-                    3.2,   // width
-                    2.8,   // height
-                    2.8    // depth
+                    3.5,
+                    0.08,
+                    3.1
                 ),
-                wallMaterial
+                metalMaterial
             );
 
 
-        house.position.y = 1.4;
-
-        house.castShadow = true;
-        house.receiveShadow = true;
+        roof.position.y = 2.84;
 
 
-        // houseGroup.add(
-        //     house
-        // );
+        roof.castShadow = true;
+        roof.receiveShadow = true;
 
+
+        houseGroup.add(
+            roof
+        );
+
+        // --------------------
+// ENABLE SHADOWS ON HOUSE
 // --------------------
-// ROOF SLAB
-// --------------------
 
-const roof =
-    new THREE.Mesh(
-        new THREE.BoxGeometry(
-            3.5,   // width (3.2 + 0.3)
-            0.08,  // thickness
-            3.1    // depth (2.8 + 0.3)
-        ),
-        metalMaterial   // same material as balcony railing
-    );
+houseGroup.traverse((object)=>{
 
+    if(object.isMesh){
 
-roof.position.set(
-    0,
-    2.84,
-    0
-);
+        object.castShadow = true;
+        object.receiveShadow = true;
 
+    }
 
-roof.castShadow = true;
-roof.receiveShadow = true;
-
-
-houseGroup.add(
-    roof
-);
+});
 
 
 
         // --------------------
-        // GROUND PLATFORM
+        // GROUND
         // --------------------
 
         const ground =
@@ -231,22 +270,24 @@ houseGroup.add(
                     64
                 ),
                 new THREE.MeshStandardMaterial({
-                    color: "#A8C98A",
-                    roughness: 1
+                    color:"#9fc47d",
+                    roughness:1
                 })
             );
 
-        ground.rotation.x = -Math.PI / 2;
-        // ground.rotation.z = -Math.PI / 4;
-        ground.position.y = -0.02;
-        // ground.position.x = 18;
-        // ground.position.z = 40;
+
+        ground.rotation.x =
+            -Math.PI / 2;
+
 
         ground.receiveShadow = true;
+
 
         scene.add(
             ground
         );
+
+
 
 
 
@@ -256,25 +297,28 @@ houseGroup.add(
 
         const ambient =
             new THREE.AmbientLight(
-                "#fff1d0",
-                1.8
+                "#fff8e7",
+                1.5
             );
+
 
         scene.add(
             ambient
         );
 
 
-        const sun =
-            new THREE.DirectionalLight(
-                "#ffe0a3",
-                2
-            );
+
+        // camera-following sun
+const sun =
+    new THREE.DirectionalLight(
+        "#fff1d6",
+        2.5
+    );
 
 
         sun.position.set(
+            4,
             5,
-            7,
             5
         );
 
@@ -282,115 +326,92 @@ houseGroup.add(
         sun.castShadow = true;
 
 
-        scene.add(
+        sun.shadow.mapSize.set(
+            1024,
+            1024
+        );
+
+
+        sun.shadow.camera.near = 0.1;
+        sun.shadow.camera.far = 50;
+
+
+sun.shadow.camera.left = -10;
+sun.shadow.camera.right = 10;
+sun.shadow.camera.top = 10;
+sun.shadow.camera.bottom = -10;
+
+
+
+        camera.add(
             sun
         );
 
 
-        // const interior =
-        //     new THREE.PointLight(
-        //         "#ffc27a",
-        //         2.5,
-        //         5
-        //     );
+        scene.add(
+            camera
+        );
 
-
-        // interior.position.set(
-        //     -0.7,
-        //     2,
-        //     0
-        // );
-
-
-        // houseGroup.add(
-        //     interior
-        // );
 
         // --------------------
-        // MOUSE ROTATION
+        // ORBIT CONTROLS
         // --------------------
 
-        let dragging = false;
-        let previousX = 0;
-        let velocity = 0;
+        const controls =
+            new OrbitControls(
+                camera,
+                renderer.domElement
+            );
 
 
-        function mouseDown(event) {
-            dragging = true;
-            previousX = event.clientX;
-            renderer.domElement.style.cursor = "grabbing";
-        }
+controls.target.set(
+    0,
+    1.8,
+    0
+);
 
 
-        function mouseMove(event) {
-            if (!dragging) return;
+        controls.enableDamping = true;
 
-            const delta =
-                event.clientX - previousX;
-
-            velocity = delta * 0.004;
-
-            houseGroup.rotation.y += velocity;
-
-            previousX = event.clientX;
-        }
+        controls.dampingFactor = 0.05;
 
 
-        function mouseUp() {
-            dragging = false;
-            renderer.domElement.style.cursor = "grab";
-        }
+        // horizontal only
+
+controls.minPolarAngle = Math.PI / 2.1;
+controls.maxPolarAngle = Math.PI / 2.1;
 
 
-        renderer.domElement.addEventListener(
-            "mousedown",
-            mouseDown
-        );
+        controls.enablePan = false;
 
-        renderer.domElement.addEventListener(
-            "mousemove",
-            mouseMove
-        );
+        controls.enableZoom = false;
 
-        window.addEventListener(
-            "mouseup",
-            mouseUp
-        );
+
 
 
         // --------------------
         // ANIMATION
         // --------------------
 
-        let animationId;
+        let frame;
 
 
-        function animate() {
+        function animate(){
 
-            animationId =
+            frame =
                 requestAnimationFrame(
                     animate
                 );
 
 
-            //   if (!dragging) {
-
-            //     houseGroup.rotation.y += velocity;
-
-            //     velocity *= 0.94;
-
-
-            //     // subtle idle movement
-            //     if (Math.abs(velocity) < 0.00005) {
-            //       houseGroup.rotation.y += 0.001;
-            //     }
-            //   }
+            controls.update();
 
 
             renderer.render(
                 scene,
                 camera
             );
+
         }
 
 
@@ -398,11 +419,13 @@ houseGroup.add(
 
 
 
+
+
         // --------------------
         // RESIZE
         // --------------------
 
-        function handleResize() {
+        function resize(){
 
             camera.aspect =
                 window.innerWidth /
@@ -416,13 +439,16 @@ houseGroup.add(
                 window.innerWidth,
                 window.innerHeight
             );
+
         }
 
 
         window.addEventListener(
             "resize",
-            handleResize
+            resize
         );
+
+
 
 
 
@@ -430,70 +456,56 @@ houseGroup.add(
         // CLEANUP
         // --------------------
 
-        return () => {
+        return ()=>{
+
 
             cancelAnimationFrame(
-                animationId
-            );
-
-
-            renderer.domElement.removeEventListener(
-                "mousedown",
-                mouseDown
-            );
-
-
-            renderer.domElement.removeEventListener(
-                "mousemove",
-                mouseMove
-            );
-
-
-            window.removeEventListener(
-                "mouseup",
-                mouseUp
+                frame
             );
 
 
             window.removeEventListener(
                 "resize",
-                handleResize
+                resize
             );
 
 
-            if (
+            controls.dispose();
+
+
+            renderer.dispose();
+
+
+
+            if(
                 containerRef.current &&
                 containerRef.current.contains(
                     renderer.domElement
                 )
-            ) {
+            ){
 
                 containerRef.current.removeChild(
                     renderer.domElement
                 );
+
             }
 
-
-            renderer.dispose();
         };
 
 
-    }, []);
+    },[]);
 
 
 
-    return (
-
+    return(
         <div
             ref={containerRef}
             style={{
-                width: "100vw",
-                height: "100vh",
-                overflow: "hidden",
-                background: "transparent",
-                cursor: "grab",
+                width:"100vw",
+                height:"100vh",
+                overflow:"hidden",
+                cursor:"grab"
             }}
         />
-
     );
 }

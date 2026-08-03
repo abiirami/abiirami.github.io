@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { wallMaterial, floorMaterial, glassMaterial } from "../materials";
 
 export default function RightRoom() {
 
@@ -12,27 +13,6 @@ export default function RightRoom() {
     const floorHeight = 1.4;
     const depth = 2.8;
     const wallThickness = 0.08;
-
-    // --------------------
-    // MATERIALS
-    // --------------------
-
-    const wallMaterial =
-        new THREE.MeshStandardMaterial({
-            color: "#F7E9D2",
-            roughness: 0.9
-        });
-
-    const glassMaterial =
-        new THREE.MeshPhysicalMaterial({
-            color: "#cfe6ff",
-            transmission: 1,
-            transparent: true,
-            opacity: 0.65,
-            roughness: 0,
-            metalness: 0,
-            thickness: 0.05
-        });
 
     // --------------------
     // ROOM CREATOR
@@ -73,6 +53,34 @@ export default function RightRoom() {
         rightWall.position.x = width / 2;
 
         group.add(rightWall);
+
+        // --------------------
+// RIGHT WALL COVER STRIP
+// --------------------
+
+if (glassRightWall) {
+
+    const wallCover =
+        new THREE.Mesh(
+            new THREE.BoxGeometry(
+                0.09,        // thickness of cover
+                floorHeight, // same height as wall
+                1.4          // length of cover
+            ),
+            wallMaterial
+        );
+
+
+    wallCover.position.set(
+        width / 2 + 0.01,
+        0,
+        -0.7
+    );
+
+
+    group.add(wallCover);
+
+}
 
         // FRONT WALL
 
