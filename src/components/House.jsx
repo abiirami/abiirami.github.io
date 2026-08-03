@@ -158,7 +158,7 @@ export default function House() {
 
         artRoom.userData = {
 
-            page: "/art",
+            page: "/art_portfolio",
 
             label:
                 "Click to view art portfolio"
@@ -185,7 +185,7 @@ export default function House() {
 
         hallway.userData = {
 
-            page: "/about",
+            page: "/about_me",
 
             label:
                 "Click to view About Me"

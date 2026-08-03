@@ -61,7 +61,7 @@ export default function Hallway() {
 
   rightWall.position.x =
     width / 2;
-rightWall.position.z += 0.2;
+  rightWall.position.z += 0.2;
 
 
 
@@ -138,7 +138,7 @@ rightWall.position.z += 0.2;
     y,
     w,
     h
-  ){
+  ) {
 
     const frame =
       new THREE.Mesh(

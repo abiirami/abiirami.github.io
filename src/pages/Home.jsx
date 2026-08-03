@@ -4,7 +4,7 @@ import SideNav from "../components/SideNav";
 export default function Home() {
   return (
     <main className="home">
-        <SideNav />
+      <SideNav />
 
       {/* <img
         className="sky"

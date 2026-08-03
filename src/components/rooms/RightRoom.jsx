@@ -40,32 +40,32 @@ export default function RightRoom() {
         group.add(rightWall);
 
         // --------------------
-// RIGHT WALL COVER STRIP
-// --------------------
+        // RIGHT WALL COVER STRIP
+        // --------------------
 
-if (glassRightWall) {
+        if (glassRightWall) {
 
-    const wallCover =
-        new THREE.Mesh(
-            new THREE.BoxGeometry(
-                0.09,        // thickness of cover
-                floorHeight, // same height as wall
-                1.4          // length of cover
-            ),
-            wallMaterial
-        );
-
-
-    wallCover.position.set(
-        width / 2 + 0.01,
-        0,
-        -0.7
-    );
+            const wallCover =
+                new THREE.Mesh(
+                    new THREE.BoxGeometry(
+                        0.09,        // thickness of cover
+                        floorHeight, // same height as wall
+                        1.4          // length of cover
+                    ),
+                    wallMaterial
+                );
 
 
-    group.add(wallCover);
+            wallCover.position.set(
+                width / 2 + 0.01,
+                0,
+                -0.7
+            );
 
-}
+
+            group.add(wallCover);
+
+        }
 
         // FRONT WALL
 
