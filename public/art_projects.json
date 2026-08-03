@@ -1,0 +1,64 @@
+[
+    {
+        "title": "Squirrel Jump",
+        "type": "video",
+        "src": "/art/sqrl_jump.mp4",
+        "tags": [
+            "Animation"
+        ],
+        "description": "Animation Mentor Project"
+    },
+    {
+        "title": "Walk Cycle",
+        "type": "video",
+        "src": "/art/Animation.mp4",
+        "tags": [
+            "Animation"
+        ],
+        "description": "My first hand drawn 2D animation created for a high school project"
+    },
+    {
+        "title": "Robot Arm",
+        "type": "video",
+        "src": "/art/robo_arm.mp4",
+        "tags": [
+            "Animation"
+        ],
+        "description": "Animation Mentor Project"
+    },
+    {
+        "title": "Sky",
+        "type": "image",
+        "src": "/art/airplane_character.png",
+        "tags": [
+            "Character"
+        ],
+        "description": "Character design for video game demo"
+    },
+    {
+        "title": "Dream",
+        "type": "video",
+        "src": "/art/dream.mp4",
+        "tags": [
+            "Animation"
+        ],
+        "description": "created on a weekend artists retreat using procreate dreams"
+    },
+    {
+        "title": "Wild Berried",
+        "type": "image",
+        "src": "/art/wild_berries.png",
+        "tags": [
+
+        ],
+        "description": "sticker design"
+    },
+    {
+        "title": "Me",
+        "type": "image",
+        "src": "/art/character_icon.png",
+        "tags": [
+        ],
+        "description": "quick self portrait - procreate"
+    }
+]

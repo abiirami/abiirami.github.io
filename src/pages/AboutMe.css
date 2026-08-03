@@ -14,6 +14,8 @@
 
 }
 
+
+
 .about-container {
 
     max-width: 700px;
@@ -30,6 +32,8 @@
 
 }
 
+
+
 .about-title {
 
     color: #23395d;
@@ -43,6 +47,8 @@
     margin-bottom: 10px;
 
 }
+
+
 
 .about-photo {
 
@@ -63,6 +69,8 @@
 
 }
 
+
+
 .about-photo img {
 
     width: 100%;
@@ -74,6 +82,76 @@
     filter: grayscale(100%);
 
 }
+
+
+
+/* Social Links */
+
+.about-socials {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 18px;
+
+    margin-top: -10px;
+
+}
+
+
+
+.about-socials a {
+
+    width: 52px;
+
+    height: 52px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .85);
+
+    border: 1px solid rgba(35, 57, 93, .15);
+
+    color: #23395d;
+
+    font-size: 1.6rem;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 8px 20px rgba(35, 57, 93, .12);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        color .3s ease;
+
+}
+
+
+
+.about-socials a:hover {
+
+    transform:
+        translateY(-5px);
+
+    color: #a98c67;
+
+    box-shadow:
+        0 15px 30px rgba(35, 57, 93, .2);
+
+}
+
+
+
+
 
 .about-card {
 
@@ -94,6 +172,8 @@
 
 }
 
+
+
 .about-card h2 {
 
     color: #23395d;
@@ -106,11 +186,15 @@
 
 }
 
+
+
 .about-card h2 span {
 
     color: #c88b55;
 
 }
+
+
 
 .about-card h3 {
 
@@ -123,9 +207,12 @@
     font-size: 1.1rem;
 
     font-weight: 500;
+
     font-style: italic;
 
 }
+
+
 
 .about-card p {
 
@@ -137,6 +224,10 @@
 
 }
 
+
+
+/* Timeline */
+
 .timeline {
 
     display: flex;
@@ -147,6 +238,8 @@
 
 }
 
+
+
 .timeline-item {
 
     padding-left: 20px;
@@ -156,6 +249,8 @@
     position: relative;
 
 }
+
+
 
 .timeline-item::before {
 
@@ -177,6 +272,8 @@
 
 }
 
+
+
 .timeline-item h4 {
 
     color: #23395d;
@@ -186,6 +283,8 @@
     font-size: 1.1rem;
 
 }
+
+
 
 .timeline-item span {
 
@@ -199,11 +298,35 @@
 
 }
 
+
+
 .timeline-item p {
 
     margin: 0;
 
 }
+
+
+
+.timeline-item a {
+
+    color: #23395d;
+
+    font-weight: 600;
+
+}
+
+
+
+.timeline-item a:hover {
+
+    color: #a98c67;
+
+}
+
+
+
+
 
 .about-footer {
 
@@ -217,6 +340,8 @@
 
 }
 
+
+
 .about-footer h3 {
 
     margin-bottom: 12px;
@@ -224,6 +349,8 @@
     font-size: 1.7rem;
 
 }
+
+
 
 .about-footer p {
 
@@ -233,6 +360,10 @@
 
 }
 
+
+
+
+
 @media (max-width:600px) {
 
     .about-page {
@@ -241,11 +372,13 @@
 
     }
 
+
     .about-title {
 
         font-size: 2.4rem;
 
     }
+
 
     .about-photo {
 
@@ -254,6 +387,18 @@
         height: 190px;
 
     }
+
+
+    .about-socials a {
+
+        width: 46px;
+
+        height: 46px;
+
+        font-size: 1.4rem;
+
+    }
+
 
     .about-card {
 
