@@ -23,7 +23,7 @@ export default function ArtPortfolio() {
 
     useEffect(() => {
 
-        fetch("/art_projects.json")
+        fetch(`${import.meta.env.BASE_URL}art_projects.json`)
             .then(res => res.json())
             .then(data => setArt(data));
 
@@ -80,6 +80,7 @@ export default function ArtPortfolio() {
 
                     </div>
 
+
                     <div className="art-filters">
 
                         {
@@ -111,6 +112,7 @@ export default function ArtPortfolio() {
 
 
 
+
                 <div className="art-grid">
 
                     {
@@ -129,18 +131,22 @@ export default function ArtPortfolio() {
                                     ?
 
                                     <video
-                                        src={piece.src}
-                                        poster={piece.thumbnail}
+                                        src={`${import.meta.env.BASE_URL}${piece.src.replace(/^\//, "")}`}
+                                        poster={
+                                            piece.thumbnail
+                                                ? `${import.meta.env.BASE_URL}${piece.thumbnail.replace(/^\//, "")}`
+                                                : undefined
+                                        }
                                         muted
                                         loop
-                                        autoPlay
                                         playsInline
+                                        preload="metadata"
                                     />
 
                                     :
 
                                     <img
-                                        src={piece.src}
+                                        src={`${import.meta.env.BASE_URL}${piece.src.replace(/^\//, "")}`}
                                         alt={piece.title}
                                     />
 
@@ -156,6 +162,7 @@ export default function ArtPortfolio() {
 
 
             </section>
+
 
 
 
@@ -181,8 +188,12 @@ export default function ArtPortfolio() {
                                 ?
 
                                 <video
-                                    src={selectedArt.src}
-                                    poster={selectedArt.thumbnail}
+                                    src={`${import.meta.env.BASE_URL}${selectedArt.src.replace(/^\//, "")}`}
+                                    poster={
+                                        selectedArt.thumbnail
+                                            ? `${import.meta.env.BASE_URL}${selectedArt.thumbnail.replace(/^\//, "")}`
+                                            : undefined
+                                    }
                                     controls
                                     loop
                                 />
@@ -190,7 +201,7 @@ export default function ArtPortfolio() {
                                 :
 
                                 <img
-                                    src={selectedArt.src}
+                                    src={`${import.meta.env.BASE_URL}${selectedArt.src.replace(/^\//, "")}`}
                                     alt={selectedArt.title}
                                 />
 

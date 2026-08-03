@@ -17,10 +17,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
-
     steps:
 
-      - name: Checkout repository with LFS
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           lfs: true
@@ -32,36 +31,12 @@ jobs:
           node-version: 20
 
 
-      - name: Check LFS assets before build
-        run: |
-          echo "=== Git LFS files ==="
-          git lfs ls-files
-
-          echo ""
-          echo "=== Public folder ==="
-          ls -lah public
-
-          echo ""
-          echo "=== Public art folder ==="
-          ls -lah public/art || true
-
-
       - name: Install dependencies
         run: npm install
 
 
       - name: Build app
         run: npm run build
-
-
-      - name: Check build output
-        run: |
-          echo "=== Dist folder ==="
-          ls -lah dist
-
-          echo ""
-          echo "=== Dist art folder ==="
-          ls -lah dist/art || true
 
 
       - name: Upload Pages artifact
@@ -77,11 +52,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
-
     environment:
-
       name: github-pages
-
 
     steps:
 
