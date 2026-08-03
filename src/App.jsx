@@ -1,4 +1,8 @@
 import Home from "./pages/Home";
+import TechPortfolio from "./pages/TechPortfolio";
+import ArtPortfolio from "./pages/ArtPortfolio";
+import About from "./pages/AboutMe";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function Footer() {
   return (
@@ -7,15 +11,23 @@ function Footer() {
         <p>© {new Date().getFullYear()} — Built with ❤️ and a vision</p>
       </div>
     </footer>
-  )
+  );
 }
 
 function App() {
   return (
-    <div className="min-h-screen bg-white text-gray-900 antialiased">
-      <Home />
-    </div>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tech_portfolio" element={<TechPortfolio />} />
+        <Route path="/art_portfolio" element={<ArtPortfolio />} />
+        <Route path="/about_me" element={<About />} />
+      </Routes>
+
+      {/* Footer outside routes so it shows everywhere */}
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

@@ -22,21 +22,6 @@ export default function RightRoom() {
 
         const group = new THREE.Group();
 
-        // LEFT WALL
-
-        const leftWall = new THREE.Mesh(
-            new THREE.BoxGeometry(
-                wallThickness,
-                floorHeight,
-                depth
-            ),
-            wallMaterial
-        );
-
-        leftWall.position.x = -width / 2;
-
-        group.add(leftWall);
-
         // RIGHT WALL
 
         const rightWall = new THREE.Mesh(
@@ -120,7 +105,7 @@ if (glassRightWall) {
                 0.05,
                 depth
             ),
-            wallMaterial
+            floorMaterial
         );
 
         floor.position.y = -floorHeight / 2;

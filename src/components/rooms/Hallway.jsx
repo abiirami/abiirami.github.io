@@ -53,7 +53,7 @@ export default function Hallway() {
       new THREE.BoxGeometry(
         0.08,
         height,
-        depth
+        depth - 0.4
       ),
       wallMaterial
     );
@@ -61,6 +61,8 @@ export default function Hallway() {
 
   rightWall.position.x =
     width / 2;
+rightWall.position.z += 0.2;
+
 
 
   hallway.add(

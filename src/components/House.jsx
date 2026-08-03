@@ -4,7 +4,7 @@ import * as THREE from "three";
 import OfficeRoom from "./rooms/OfficeRoom";
 import ArtRoom from "./rooms/ArtRoom";
 import Hallway from "./rooms/Hallway";
-import BackRoom from "./rooms/BackRoom";
+import BackRoom from "./rooms/BehindRoom";
 import RightRoom from "./rooms/RightRoom";
 import Balcony from "./rooms/Balcony";
 
@@ -52,17 +52,18 @@ export default function House(){
             );
 
 
-camera.position.set(
-    0,
-    2,
-    10
-);
+        camera.position.set(
+            0,
+            2,
+            10
+        );
 
-camera.lookAt(
-    0,
-    1.5,
-    0
-);
+
+        camera.lookAt(
+            0,
+            1.5,
+            0
+        );
 
 
 
@@ -120,11 +121,23 @@ camera.lookAt(
         const office =
             OfficeRoom();
 
+
         office.position.set(
             -0.535,
             2.1,
             0.7
         );
+
+
+        office.userData = {
+
+            page:"/tech_portfolio",
+
+            label:
+            "Click to view tech portfolio"
+
+        };
+
 
         houseGroup.add(
             office
@@ -135,11 +148,23 @@ camera.lookAt(
         const artRoom =
             ArtRoom();
 
+
         artRoom.position.set(
             -0.8,
             0.7,
             0
         );
+
+
+        artRoom.userData = {
+
+            page:"/art",
+
+            label:
+            "Click to view art portfolio"
+
+        };
+
 
         houseGroup.add(
             artRoom
@@ -150,11 +175,23 @@ camera.lookAt(
         const hallway =
             Hallway();
 
+
         hallway.position.set(
             0.265,
             0.7,
             0
         );
+
+
+        hallway.userData = {
+
+            page:"/about",
+
+            label:
+            "Click to view About Me"
+
+        };
+
 
         houseGroup.add(
             hallway
@@ -165,11 +202,13 @@ camera.lookAt(
         const backRoom =
             BackRoom();
 
+
         backRoom.position.set(
             -0.535,
             2.1,
             -0.7
         );
+
 
         houseGroup.add(
             backRoom
@@ -180,11 +219,13 @@ camera.lookAt(
         const rightRoom =
             RightRoom();
 
+
         rightRoom.position.set(
             1.065,
             1.4,
             0
         );
+
 
         houseGroup.add(
             rightRoom
@@ -206,7 +247,6 @@ camera.lookAt(
         houseGroup.add(
             balcony
         );
-
 
 
         scene.add(
@@ -231,7 +271,8 @@ camera.lookAt(
             );
 
 
-        roof.position.y = 2.84;
+        roof.position.y =
+            2.84;
 
 
         roof.castShadow = true;
@@ -242,24 +283,22 @@ camera.lookAt(
             roof
         );
 
-        // --------------------
-// ENABLE SHADOWS ON HOUSE
-// --------------------
-
-houseGroup.traverse((object)=>{
-
-    if(object.isMesh){
-
-        object.castShadow = true;
-        object.receiveShadow = true;
-
-    }
-
-});
 
 
+        houseGroup.traverse(
+            object=>{
 
-        // --------------------
+                if(object.isMesh){
+
+                    object.castShadow = true;
+                    object.receiveShadow = true;
+
+                }
+
+            }
+        );
+
+                // --------------------
         // GROUND
         // --------------------
 
@@ -290,30 +329,24 @@ houseGroup.traverse((object)=>{
 
 
 
-
         // --------------------
         // LIGHTING
         // --------------------
 
-        const ambient =
+        scene.add(
             new THREE.AmbientLight(
                 "#fff8e7",
                 1.5
-            );
-
-
-        scene.add(
-            ambient
+            )
         );
 
 
 
-        // camera-following sun
-const sun =
-    new THREE.DirectionalLight(
-        "#fff1d6",
-        2.5
-    );
+        const sun =
+            new THREE.DirectionalLight(
+                "#fff1d6",
+                2.5
+            );
 
 
         sun.position.set(
@@ -332,15 +365,28 @@ const sun =
         );
 
 
-        sun.shadow.camera.near = 0.1;
-        sun.shadow.camera.far = 50;
+        sun.shadow.camera.near =
+            0.1;
 
 
-sun.shadow.camera.left = -10;
-sun.shadow.camera.right = 10;
-sun.shadow.camera.top = 10;
-sun.shadow.camera.bottom = -10;
+        sun.shadow.camera.far =
+            50;
 
+
+        sun.shadow.camera.left =
+            -10;
+
+
+        sun.shadow.camera.right =
+            10;
+
+
+        sun.shadow.camera.top =
+            10;
+
+
+        sun.shadow.camera.bottom =
+            -10;
 
 
         camera.add(
@@ -353,8 +399,10 @@ sun.shadow.camera.bottom = -10;
         );
 
 
+
+
         // --------------------
-        // ORBIT CONTROLS
+        // CONTROLS
         // --------------------
 
         const controls =
@@ -364,11 +412,11 @@ sun.shadow.camera.bottom = -10;
             );
 
 
-controls.target.set(
-    0,
-    1.8,
-    0
-);
+        controls.target.set(
+            0,
+            1.8,
+            0
+        );
 
 
         controls.enableDamping = true;
@@ -376,10 +424,12 @@ controls.target.set(
         controls.dampingFactor = 0.05;
 
 
-        // horizontal only
+        controls.minPolarAngle =
+            Math.PI / 2.1;
 
-controls.minPolarAngle = Math.PI / 2.1;
-controls.maxPolarAngle = Math.PI / 2.1;
+
+        controls.maxPolarAngle =
+            Math.PI / 2.1;
 
 
         controls.enablePan = false;
@@ -390,7 +440,233 @@ controls.maxPolarAngle = Math.PI / 2.1;
 
 
         // --------------------
-        // ANIMATION
+        // CLICK LABEL SYSTEM
+        // --------------------
+
+        const raycaster =
+            new THREE.Raycaster();
+
+
+        const mouse =
+            new THREE.Vector2();
+
+
+        let selectedRoom = null;
+
+
+
+        const label =
+            document.createElement(
+                "div"
+            );
+
+
+        Object.assign(
+            label.style,
+            {
+                position:"fixed",
+                background:
+                    "rgba(255,245,220,0.92)",
+                color:"#6b4b32",
+                padding:
+                    "8px 14px",
+                borderRadius:
+                    "10px",
+                fontFamily:
+                    "sans-serif",
+                fontSize:
+                    "14px",
+                pointerEvents:
+                    "none",
+                opacity:
+                    "0",
+                transform:
+                    "translate(-50%, -50%)",
+                transition:
+                    "opacity .2s",
+                zIndex:
+                    "10"
+            }
+        );
+
+
+        document.body.appendChild(
+            label
+        );
+
+
+
+
+        function updateLabelPosition(){
+
+            if(!selectedRoom)
+                return;
+
+
+            const position =
+                new THREE.Vector3();
+
+
+            selectedRoom.getWorldPosition(
+                position
+            );
+
+
+            position.y += 0.2;
+
+
+            position.project(
+                camera
+            );
+
+
+
+            const x =
+                (position.x * 0.5 + 0.5)
+                * window.innerWidth;
+
+
+            const y =
+                (-position.y * 0.5 + 0.5)
+                * window.innerHeight;
+
+
+
+            label.style.left =
+                `${x}px`;
+
+
+            label.style.top =
+                `${y}px`;
+
+        }
+
+
+
+
+        function findRoom(event){
+
+
+            const rect =
+                renderer.domElement
+                .getBoundingClientRect();
+
+
+            mouse.x =
+                ((event.clientX - rect.left)
+                / rect.width) * 2 - 1;
+
+
+            mouse.y =
+                -((event.clientY - rect.top)
+                / rect.height) * 2 + 1;
+
+
+
+            raycaster.setFromCamera(
+                mouse,
+                camera
+            );
+
+
+
+            const hits =
+                raycaster.intersectObjects(
+                    houseGroup.children,
+                    true
+                );
+
+
+
+            if(!hits.length)
+                return null;
+
+
+
+            let object =
+                hits[0].object;
+
+
+
+            while(object){
+
+                if(object.userData.page)
+                    return object;
+
+
+                object =
+                    object.parent;
+
+            }
+
+
+            return null;
+
+        }
+
+
+
+
+        function clickRoom(event){
+
+            const room =
+                findRoom(event);
+
+
+
+            if(!room){
+
+                selectedRoom = null;
+
+                label.style.opacity = 0;
+
+                return;
+
+            }
+
+
+
+
+            if(selectedRoom !== room){
+
+                selectedRoom = room;
+
+
+                label.innerText =
+                    room.userData.label;
+
+
+                label.style.opacity = 1;
+
+
+                updateLabelPosition();
+
+
+                return;
+
+            }
+
+
+
+
+            window.location.href =
+                room.userData.page;
+
+        }
+
+
+
+
+        renderer.domElement.addEventListener(
+            "pointerdown",
+            clickRoom
+        );
+
+
+
+
+        // --------------------
+        // LOOP
         // --------------------
 
         let frame;
@@ -407,6 +683,9 @@ controls.maxPolarAngle = Math.PI / 2.1;
             controls.update();
 
 
+            updateLabelPosition();
+
+
             renderer.render(
                 scene,
                 camera
@@ -416,7 +695,6 @@ controls.maxPolarAngle = Math.PI / 2.1;
 
 
         animate();
-
 
 
 
@@ -440,6 +718,9 @@ controls.maxPolarAngle = Math.PI / 2.1;
                 window.innerHeight
             );
 
+
+            updateLabelPosition();
+
         }
 
 
@@ -447,7 +728,6 @@ controls.maxPolarAngle = Math.PI / 2.1;
             "resize",
             resize
         );
-
 
 
 
@@ -468,6 +748,24 @@ controls.maxPolarAngle = Math.PI / 2.1;
                 "resize",
                 resize
             );
+
+
+            renderer.domElement.removeEventListener(
+                "pointerdown",
+                clickRoom
+            );
+
+
+            if(
+                document.body.contains(label)
+            ){
+
+                document.body.removeChild(
+                    label
+                );
+
+            }
+
 
 
             controls.dispose();
@@ -498,14 +796,20 @@ controls.maxPolarAngle = Math.PI / 2.1;
 
 
     return(
+
         <div
+
             ref={containerRef}
+
             style={{
                 width:"100vw",
                 height:"100vh",
                 overflow:"hidden",
                 cursor:"grab"
             }}
+
         />
+
     );
+
 }

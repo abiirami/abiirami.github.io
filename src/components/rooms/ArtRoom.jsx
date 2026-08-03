@@ -433,7 +433,7 @@ export default function ArtRoom() {
     new THREE.Vector3(
       width / 2 - 0.045,
       0.05,
-      -0.55
+      -0.2
     ),
     "right",
     "#E9A86A",
@@ -445,7 +445,7 @@ export default function ArtRoom() {
     new THREE.Vector3(
       width / 2 - 0.045,
       0.1,
-      0.55
+      0.7
     ),
     "right",
     "#86B8A8",
