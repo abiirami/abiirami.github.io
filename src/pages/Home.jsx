@@ -1,8 +1,10 @@
 import House from "../components/House";
+import SideNav from "../components/SideNav";
 
 export default function Home() {
   return (
     <main className="home">
+        <SideNav />
 
       {/* <img
         className="sky"

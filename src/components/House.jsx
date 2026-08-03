@@ -10,18 +10,18 @@ import Balcony from "./rooms/Balcony";
 
 import { metalMaterial } from "./materials";
 
-import { OrbitControls } from 
-"three/examples/jsm/controls/OrbitControls.js";
+import { OrbitControls } from
+    "three/examples/jsm/controls/OrbitControls.js";
 
 
-export default function House(){
+export default function House() {
 
     const containerRef = useRef(null);
 
 
-    useEffect(()=>{
+    useEffect(() => {
 
-        if(!containerRef.current) return;
+        if (!containerRef.current) return;
 
 
 
@@ -73,7 +73,7 @@ export default function House(){
 
         const renderer =
             new THREE.WebGLRenderer({
-                antialias:true
+                antialias: true
             });
 
 
@@ -131,10 +131,10 @@ export default function House(){
 
         office.userData = {
 
-            page:"/tech_portfolio",
+            page: "/tech_portfolio",
 
             label:
-            "Click to view tech portfolio"
+                "Click to view tech portfolio"
 
         };
 
@@ -158,10 +158,10 @@ export default function House(){
 
         artRoom.userData = {
 
-            page:"/art",
+            page: "/art",
 
             label:
-            "Click to view art portfolio"
+                "Click to view art portfolio"
 
         };
 
@@ -185,10 +185,10 @@ export default function House(){
 
         hallway.userData = {
 
-            page:"/about",
+            page: "/about",
 
             label:
-            "Click to view About Me"
+                "Click to view About Me"
 
         };
 
@@ -286,9 +286,9 @@ export default function House(){
 
 
         houseGroup.traverse(
-            object=>{
+            object => {
 
-                if(object.isMesh){
+                if (object.isMesh) {
 
                     object.castShadow = true;
                     object.receiveShadow = true;
@@ -298,7 +298,7 @@ export default function House(){
             }
         );
 
-                // --------------------
+        // --------------------
         // GROUND
         // --------------------
 
@@ -309,8 +309,8 @@ export default function House(){
                     64
                 ),
                 new THREE.MeshStandardMaterial({
-                    color:"#9fc47d",
-                    roughness:1
+                    color: "#9fc47d",
+                    roughness: 1
                 })
             );
 
@@ -464,10 +464,10 @@ export default function House(){
         Object.assign(
             label.style,
             {
-                position:"fixed",
+                position: "fixed",
                 background:
                     "rgba(255,245,220,0.92)",
-                color:"#6b4b32",
+                color: "#6b4b32",
                 padding:
                     "8px 14px",
                 borderRadius:
@@ -497,9 +497,9 @@ export default function House(){
 
 
 
-        function updateLabelPosition(){
+        function updateLabelPosition() {
 
-            if(!selectedRoom)
+            if (!selectedRoom)
                 return;
 
 
@@ -544,22 +544,22 @@ export default function House(){
 
 
 
-        function findRoom(event){
+        function findRoom(event) {
 
 
             const rect =
                 renderer.domElement
-                .getBoundingClientRect();
+                    .getBoundingClientRect();
 
 
             mouse.x =
                 ((event.clientX - rect.left)
-                / rect.width) * 2 - 1;
+                    / rect.width) * 2 - 1;
 
 
             mouse.y =
                 -((event.clientY - rect.top)
-                / rect.height) * 2 + 1;
+                    / rect.height) * 2 + 1;
 
 
 
@@ -578,7 +578,7 @@ export default function House(){
 
 
 
-            if(!hits.length)
+            if (!hits.length)
                 return null;
 
 
@@ -588,9 +588,9 @@ export default function House(){
 
 
 
-            while(object){
+            while (object) {
 
-                if(object.userData.page)
+                if (object.userData.page)
                     return object;
 
 
@@ -607,14 +607,14 @@ export default function House(){
 
 
 
-        function clickRoom(event){
+        function clickRoom(event) {
 
             const room =
                 findRoom(event);
 
 
 
-            if(!room){
+            if (!room) {
 
                 selectedRoom = null;
 
@@ -627,7 +627,7 @@ export default function House(){
 
 
 
-            if(selectedRoom !== room){
+            if (selectedRoom !== room) {
 
                 selectedRoom = room;
 
@@ -649,7 +649,7 @@ export default function House(){
 
 
 
-            window.location.href =
+            window.location.hash =
                 room.userData.page;
 
         }
@@ -672,7 +672,7 @@ export default function House(){
         let frame;
 
 
-        function animate(){
+        function animate() {
 
             frame =
                 requestAnimationFrame(
@@ -703,7 +703,7 @@ export default function House(){
         // RESIZE
         // --------------------
 
-        function resize(){
+        function resize() {
 
             camera.aspect =
                 window.innerWidth /
@@ -736,7 +736,7 @@ export default function House(){
         // CLEANUP
         // --------------------
 
-        return ()=>{
+        return () => {
 
 
             cancelAnimationFrame(
@@ -756,9 +756,9 @@ export default function House(){
             );
 
 
-            if(
+            if (
                 document.body.contains(label)
-            ){
+            ) {
 
                 document.body.removeChild(
                     label
@@ -775,12 +775,12 @@ export default function House(){
 
 
 
-            if(
+            if (
                 containerRef.current &&
                 containerRef.current.contains(
                     renderer.domElement
                 )
-            ){
+            ) {
 
                 containerRef.current.removeChild(
                     renderer.domElement
@@ -791,21 +791,21 @@ export default function House(){
         };
 
 
-    },[]);
+    }, []);
 
 
 
-    return(
+    return (
 
         <div
 
             ref={containerRef}
 
             style={{
-                width:"100vw",
-                height:"100vh",
-                overflow:"hidden",
-                cursor:"grab"
+                width: "100vw",
+                height: "100vh",
+                overflow: "hidden",
+                cursor: "grab"
             }}
 
         />

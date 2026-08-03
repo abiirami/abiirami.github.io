@@ -1,0 +1,51 @@
+[
+   {
+    "title": "MemLoc",
+    "description": " TODO list based on memory and location - Undergrad CapStone Project",
+    "image": "https://i.imgur.com/lNduvIV.png",
+    "link": "https://github.com/cdelst/MemLoc"
+  },
+  {
+    "title": "Beeyond",
+    "description": "Multi Hackathon Award Winning Project - A platform for small/local businesses to gain traction during pandemic",
+    "image": "https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/001/225/226/datas/medium.png",
+    "link": "https://devpost.com/software/beeyond"
+  },
+  {
+    "title": "Web GL Spider",
+    "description": "Animated spider using WebGL - for CSE 160 Computer Graphics course",
+    "image": "https://i.imgur.com/n056SxO.png",
+    "link": "https://github.com/abiirami/WebGL_Spider"
+  },
+
+  {
+    "title": "VacciNation",
+    "description": "CruzHacks 2021 Award Winning Project - Covid Vaccine symptom tracker",
+    "image": "https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/001/352/816/datas/medium.png",
+    "link": "https://devpost.com/software/vaccination-yzqs4g"
+  },
+  {
+    "title": "Pacman AI Agent",
+    "description": "CSE 140 AI course final project to create the most optimized Pacman agent",
+    "image": "https://i.imgur.com/zAaBHKk.png",
+    "link": "https://github.com/harshithaarul/Pacman-PA4"
+  },
+  {
+    "title": "SafeWE",
+    "description": "A way to report safety incidents and request for aid in real time - hackathon project",
+    "image": "https://d112y698adiu2z.cloudfront.net/photos/production/software_photos/001/208/853/datas/gallery.jpg",
+    "link": "https://devpost.com/software/safewe"
+  },
+  {
+    "title": "SnapJam",
+    "description": "Generate a Spotify playlist based on your current mood using Google Cloud Vision face recognition API - CruzHacks 2020",
+    "image": "https://d112y698adiu2z.cloudfront.net/photos/production/software_thumbnail_photos/000/913/682/datas/medium.jpeg",
+    "link": "https://devpost.com/software/snapjam-i6yov7"
+  },
+  {
+    "title": "The Patriot Score",
+    "description": "Research in creating a social score based on twitter data - CSE 146 Ethics and Algorithms course final project",
+    "image": "https://lh3.googleusercontent.com/d/1vX_Cdt5_MdFon_LT8Ao2gH_WhnOuQb10",
+    "link": "https://www.youtube.com/watch?v=5llwqMydjvM"
+  }
+]
