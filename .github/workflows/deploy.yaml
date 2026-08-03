@@ -10,35 +10,62 @@ permissions:
   pages: write
   id-token: write
 
+
 jobs:
+
   build:
+
     runs-on: ubuntu-latest
+
 
     steps:
 
-      - uses: actions/checkout@v4
+      - name: Checkout repository with LFS
+        uses: actions/checkout@v4
         with:
           lfs: true
 
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
 
-      - name: Check LFS assets
+      - name: Check LFS assets before build
         run: |
+          echo "=== Git LFS files ==="
           git lfs ls-files
-          ls -lh public/art
+
+          echo ""
+          echo "=== Public folder ==="
+          ls -lah public
+
+          echo ""
+          echo "=== Public art folder ==="
+          ls -lah public/art || true
 
 
-      - run: npm install
+      - name: Install dependencies
+        run: npm install
 
 
-      - run: npm run build
+      - name: Build app
+        run: npm run build
 
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Check build output
+        run: |
+          echo "=== Dist folder ==="
+          ls -lah dist
+
+          echo ""
+          echo "=== Dist art folder ==="
+          ls -lah dist/art || true
+
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
 
@@ -58,4 +85,5 @@ jobs:
 
     steps:
 
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
